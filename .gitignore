@@ -44,3 +44,6 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+# assets
+assets/entry.json
