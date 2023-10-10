@@ -1,11 +1,37 @@
-import React from "react";
-import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, Stack } from "expo-router";
-import { FlashList } from "@shopify/flash-list";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { api } from "~/utils/api";
+import SearchBar from "~/components/ui/search-bar";
 import type { RouterOutputs } from "~/utils/api";
+import { api } from "~/utils/api";
+
+const _storeData = async () => {
+  try {
+    console.log("setting storage");
+    await AsyncStorage.setItem("TASKS", "I like to save it.");
+  } catch (error) {
+    // Error saving data
+    console.log(error);
+  }
+};
+
+const _retrieveData = async () => {
+  try {
+    console.log("getting storage");
+    const value = await AsyncStorage.getItem("TASKS");
+    console.log("value", value);
+    if (value !== null) {
+      // We have data!!
+      console.log(value);
+    }
+  } catch (error) {
+    // Error retrieving data
+    console.error(error);
+  }
+};
 
 function PostCard(props: {
   post: RouterOutputs["post"]["all"][number];
@@ -77,7 +103,7 @@ function CreatePost() {
         </Text>
       )}
       <TouchableOpacity
-        className="rounded bg-pink-400 p-2"
+        className="rounded bg-teal-400 p-2"
         onPress={() => {
           mutate({
             title,
@@ -100,28 +126,56 @@ const Index = () => {
     onSettled: () => utils.post.all.invalidate(),
   });
 
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = (searchText) => {
+    // Perform search here and update searchResults state
+    // setSearchResults([...searchResults, searchText]);
+    setSearchResults(["hello", "search"]);
+  };
+
   return (
     <SafeAreaView className="bg-[#1F104A]">
       {/* Changes page title visible on the header */}
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
         <Text className="mx-auto pb-2 text-5xl font-bold text-white">
-          Create <Text className="text-pink-400">T3</Text> Turbo
+          Learn Korean with <Text className="text-teal-400">HanByte</Text>
         </Text>
 
-        <Button
+        {/* <Button title="store item" onPress={() => _storeData()} />
+        <Button title="retrieve item" onPress={() => _retrieveData()} /> */}
+
+        {/* <Button
           onPress={() => void utils.post.all.invalidate()}
           title="Refresh posts"
-          color={"#f472b6"}
-        />
+          color={"rgb(45 212 191)"}
+        /> */}
 
-        <View className="py-2">
+        <SearchBar onSearch={handleSearch} />
+        {searchResults.map((result, index) => (
+          <View key={index}>
+            <Link
+              asChild
+              href={{
+                pathname: "/entry/[id]",
+                params: { id: 1 },
+              }}
+            >
+              <TouchableOpacity>
+                <Text className="text-white">{result}</Text>
+              </TouchableOpacity>
+            </Link>
+          </View>
+        ))}
+
+        {/* <View className="py-2">
           <Text className="font-semibold italic text-white">
             Press on a post
           </Text>
-        </View>
+        </View> */}
 
-        <FlashList
+        {/* <FlashList
           data={postQuery.data}
           estimatedItemSize={20}
           ItemSeparatorComponent={() => <View className="h-2" />}
@@ -133,7 +187,7 @@ const Index = () => {
           )}
         />
 
-        <CreatePost />
+        <CreatePost /> */}
       </View>
     </SafeAreaView>
   );
