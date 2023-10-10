@@ -1,35 +1,36 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FlashList } from "@shopify/flash-list";
+import entries from "assets/entry.json";
 import { Link, Stack } from "expo-router";
+import Fuse from "fuse.js";
 import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import entries from 'assets/entry.json';
-import Fuse from "fuse.js";
 import SearchBar from "~/components/ui/search-bar";
+import type { Entry } from "~/types/entry";
 import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
 
 const fuseOptions = {
-	isCaseSensitive: false,
-	includeScore: false,
-	// shouldSort: true,
-	// includeMatches: false,
-	// findAllMatches: false,
-	// minMatchCharLength: 1,
-	// location: 0,
-	// threshold: 0.6,
-	// distance: 100,
-	// useExtendedSearch: false,
-	// ignoreLocation: false,
-	// ignoreFieldNorm: false,
-	// fieldNormWeight: 1,
-	keys: [
-		"english.word",
-		// "english.definition"
-	]
+  isCaseSensitive: false,
+  includeScore: false,
+  // shouldSort: true,
+  // includeMatches: false,
+  // findAllMatches: false,
+  // minMatchCharLength: 1,
+  // location: 0,
+  // threshold: 0.6,
+  // distance: 100,
+  // useExtendedSearch: false,
+  // ignoreLocation: false,
+  // ignoreFieldNorm: false,
+  // fieldNormWeight: 1,
+  keys: [
+    "english.word",
+    // "english.definition"
+  ],
 };
-
 
 const _storeData = async () => {
   try {
@@ -139,25 +140,13 @@ function CreatePost() {
     </View>
   );
 }
+const fuse = new Fuse(entries as Entry[], fuseOptions);
 
-const fuse = new Fuse(entries, fuseOptions);
-
-interface Entry {
-  english: {
-    word: string;
-    definition: string;
-  },
-  korean: {
-    word: string;
-    definition: string;
-  }
-}
+// TODO: preload index
+// Fuse.createIndex(["english.word"], entries as Entry[]);
 
 const Index = () => {
   // const utils = api.useContext();
-
-  // const postQuery = api.post.all.useQuery();
-
   // const deletePostMutation = api.post.delete.useMutation({
   //   onSettled: () => utils.post.all.invalidate(),
   // });
@@ -165,14 +154,10 @@ const Index = () => {
   const [searchResults, setSearchResults] = useState<Entry[]>([]);
 
   const handleSearch = (searchText: string) => {
-    const results = fuse.search<Entry>(searchText)
-    // console.log('results', results.slice(0,10).map(r=>r.item).length)
-    // Perform search here and update searchResults state
-    // setSearchResults([...searchResults, searchText]);
-    const r = results.slice(0,10).map(r=>r.item)
+    const results = fuse.search<Entry>(searchText);
+    const r = results.slice(0, 10).map((r) => r.item);
     setSearchResults(r);
   };
-
 
   return (
     <SafeAreaView className="bg-[#1F104A]">
@@ -183,55 +168,38 @@ const Index = () => {
           Learn Korean with <Text className="text-teal-400">HanByte</Text>
         </Text>
 
-        {/* <Button title="store item" onPress={() => _storeData()} />
-        <Button title="retrieve item" onPress={() => _retrieveData()} /> */}
-
-        {/* <Button
-          onPress={() => void utils.post.all.invalidate()}
-          title="Refresh posts"
-          color={"rgb(45 212 191)"}
-        /> */}
-
         <SearchBar onSearch={handleSearch} />
-        {searchResults.map((r, index) => (
-          <View key={index}>
-            <Link
-              asChild
-              href={{
-                pathname: "/entry/[id]",
-                params: { id: 1 },
-              }}
-            >
-              <TouchableOpacity>
-                <View>
-              <Text className="text-white">{r.korean?.word}</Text>
-              <Text className="text-white">{r.english?.word}</Text>
-            </View>
-              </TouchableOpacity>
-            </Link>
-            <View className="h-2" />
-          </View>
-        ))}
-
-        {/* <View className="py-2">
-          <Text className="font-semibold italic text-white">
-            Press on a post
-          </Text>
-        </View> */}
-
-        {/* <FlashList
+        <FlashList
           data={searchResults}
           estimatedItemSize={10}
           ItemSeparatorComponent={() => <View className="h-2" />}
           renderItem={(r) => (
-            <View>
-              <Text className="text-white">{r.korean?.word}</Text>
-              <Text className="text-white">{r.english?.word}</Text>
+            <View className="flex flex-row rounded-lg bg-white/10 p-4">
+              <View className="flex-grow">
+                <Link
+                  asChild
+                  href={{
+                    pathname: "/entry/[id]",
+                    params: { id: r.item._id["$oid"] },
+                  }}
+                >
+                  <TouchableOpacity>
+                    <Text className="text-xl font-semibold text-teal-400">
+                      {r.item.korean.word}
+                    </Text>
+                    <Text className="mt-2 text-white">
+                      <Text className="text-teal-400">
+                        {r.item.english.word}
+                      </Text>
+                      {" - "}
+                      {r.item.english.definition}
+                    </Text>
+                  </TouchableOpacity>
+                </Link>
+              </View>
             </View>
           )}
-        /> */}
-
-        {/* <CreatePost /> */}
+        />
       </View>
     </SafeAreaView>
   );

@@ -46,4 +46,4 @@ yarn-error.log*
 .turbo
 
 # assets
-apps/expo/assets/entry.json
+apps/expo/assets/*.json
