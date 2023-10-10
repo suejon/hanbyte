@@ -1,12 +1,35 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Link, Stack } from "expo-router";
 import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Link, Stack } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import entries from 'assets/entry.json';
+import Fuse from "fuse.js";
 import SearchBar from "~/components/ui/search-bar";
 import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
+
+const fuseOptions = {
+	isCaseSensitive: false,
+	includeScore: false,
+	// shouldSort: true,
+	// includeMatches: false,
+	// findAllMatches: false,
+	// minMatchCharLength: 1,
+	// location: 0,
+	// threshold: 0.6,
+	// distance: 100,
+	// useExtendedSearch: false,
+	// ignoreLocation: false,
+	// ignoreFieldNorm: false,
+	// fieldNormWeight: 1,
+	keys: [
+		"english.word",
+		// "english.definition"
+	]
+};
+
 
 const _storeData = async () => {
   try {
@@ -117,22 +140,39 @@ function CreatePost() {
   );
 }
 
+const fuse = new Fuse(entries, fuseOptions);
+
+interface Entry {
+  english: {
+    word: string;
+    definition: string;
+  },
+  korean: {
+    word: string;
+    definition: string;
+  }
+}
+
 const Index = () => {
-  const utils = api.useContext();
+  // const utils = api.useContext();
 
-  const postQuery = api.post.all.useQuery();
+  // const postQuery = api.post.all.useQuery();
 
-  const deletePostMutation = api.post.delete.useMutation({
-    onSettled: () => utils.post.all.invalidate(),
-  });
+  // const deletePostMutation = api.post.delete.useMutation({
+  //   onSettled: () => utils.post.all.invalidate(),
+  // });
 
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<Entry[]>([]);
 
-  const handleSearch = (searchText) => {
+  const handleSearch = (searchText: string) => {
+    const results = fuse.search<Entry>(searchText)
+    // console.log('results', results.slice(0,10).map(r=>r.item).length)
     // Perform search here and update searchResults state
     // setSearchResults([...searchResults, searchText]);
-    setSearchResults(["hello", "search"]);
+    const r = results.slice(0,10).map(r=>r.item)
+    setSearchResults(r);
   };
+
 
   return (
     <SafeAreaView className="bg-[#1F104A]">
@@ -153,7 +193,7 @@ const Index = () => {
         /> */}
 
         <SearchBar onSearch={handleSearch} />
-        {searchResults.map((result, index) => (
+        {searchResults.map((r, index) => (
           <View key={index}>
             <Link
               asChild
@@ -163,9 +203,13 @@ const Index = () => {
               }}
             >
               <TouchableOpacity>
-                <Text className="text-white">{result}</Text>
+                <View>
+              <Text className="text-white">{r.korean?.word}</Text>
+              <Text className="text-white">{r.english?.word}</Text>
+            </View>
               </TouchableOpacity>
             </Link>
+            <View className="h-2" />
           </View>
         ))}
 
@@ -176,18 +220,18 @@ const Index = () => {
         </View> */}
 
         {/* <FlashList
-          data={postQuery.data}
-          estimatedItemSize={20}
+          data={searchResults}
+          estimatedItemSize={10}
           ItemSeparatorComponent={() => <View className="h-2" />}
-          renderItem={(p) => (
-            <PostCard
-              post={p.item}
-              onDelete={() => deletePostMutation.mutate(p.item.id)}
-            />
+          renderItem={(r) => (
+            <View>
+              <Text className="text-white">{r.korean?.word}</Text>
+              <Text className="text-white">{r.english?.word}</Text>
+            </View>
           )}
-        />
+        /> */}
 
-        <CreatePost /> */}
+        {/* <CreatePost /> */}
       </View>
     </SafeAreaView>
   );
