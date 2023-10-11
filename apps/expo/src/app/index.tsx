@@ -154,6 +154,7 @@ const Index = () => {
   const [searchResults, setSearchResults] = useState<Entry[]>([]);
 
   const handleSearch = (searchText: string) => {
+    console.log('doing a search')
     const results = fuse.search<Entry>(searchText);
     const r = results.slice(0, 10).map((r) => r.item);
     setSearchResults(r);
