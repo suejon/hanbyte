@@ -9,7 +9,7 @@ export default function Entry() {
   const entry: Entry = entrymap[id] || {};
 
   return (
-    <SafeAreaView className="bg-[#1F104A] h-full">
+    <SafeAreaView className="bg-[#04364A] h-full">
       <View className="p-2">
         <Text className="pb-2 text-5xl font-bold text-teal-400">{entry.korean.word}{" "}<Text className="text-white font-semibold">({entry.chinese.word})</Text></Text>
         <Text className="text-3xl text-teal-400">{entry.english.word}</Text>
