@@ -41,7 +41,7 @@ const SearchBar = ({ onSearch }: { onSearch: (text: string) => void }) => {
         value={searchText}
         placeholder="Search"
       />
-      <Text className="text-white">Debounced Search Term: {debouncedSearchTerm}</Text>
+      {/* <Text className="text-white">Debounced Search Term: {debouncedSearchTerm}</Text> */}
     </View>
   );
 };
