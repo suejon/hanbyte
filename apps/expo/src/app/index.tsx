@@ -28,6 +28,7 @@ const fuseOptions = {
   // fieldNormWeight: 1,
   keys: [
     "english.word",
+    // "korean.word",
     // "english.definition"
   ],
 };
@@ -168,8 +169,8 @@ const Index = () => {
         <Text className="mx-auto pb-2 text-5xl font-bold text-white">
           Learn Korean with <Text className="text-teal-400">HanByte</Text>
         </Text>
-
         <SearchBar onSearch={handleSearch} />
+        <View className="h-2" />
         <FlashList
           data={searchResults}
           estimatedItemSize={10}
