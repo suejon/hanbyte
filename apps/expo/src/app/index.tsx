@@ -28,6 +28,7 @@ const fuseOptions = {
   // fieldNormWeight: 1,
   keys: [
     "english.word",
+    // "korean.word",
     // "english.definition"
   ],
 };
@@ -154,21 +155,22 @@ const Index = () => {
   const [searchResults, setSearchResults] = useState<Entry[]>([]);
 
   const handleSearch = (searchText: string) => {
+    console.log('doing a search')
     const results = fuse.search<Entry>(searchText);
     const r = results.slice(0, 10).map((r) => r.item);
     setSearchResults(r);
   };
 
   return (
-    <SafeAreaView className="bg-[#1F104A]">
+    <SafeAreaView className="bg-[#04364A]">
       {/* Changes page title visible on the header */}
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
         <Text className="mx-auto pb-2 text-5xl font-bold text-white">
           Learn Korean with <Text className="text-teal-400">HanByte</Text>
         </Text>
-
         <SearchBar onSearch={handleSearch} />
+        <View className="h-2" />
         <FlashList
           data={searchResults}
           estimatedItemSize={10}
