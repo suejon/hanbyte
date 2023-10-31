@@ -47,3 +47,4 @@ yarn-error.log*
 
 # assets
 apps/expo/assets/*.json
+apps/nextjs/public/*.json

@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 importers:
 
   .:
@@ -35,6 +31,9 @@ importers:
       '@react-native-async-storage/async-storage':
         specifier: ^1.19.3
         version: 1.19.3(react-native@0.72.5)
+      '@react-native-clipboard/clipboard':
+        specifier: ^1.12.1
+        version: 1.12.1(react-native@0.72.5)(react@18.2.0)
       '@shopify/flash-list':
         specifier: 1.6.1
         version: 1.6.1(@babel/runtime@7.23.1)(react-native@0.72.5)(react@18.2.0)
@@ -177,6 +176,9 @@ importers:
       '@trpc/server':
         specifier: ^10.38.5
         version: 10.38.5
+      fuse.js:
+        specifier: ^6.6.2
+        version: 6.6.2
       next:
         specifier: ^13.5.4
         version: 13.5.4(react-dom@18.2.0)(react@18.2.0)
@@ -3198,6 +3200,16 @@ packages:
       react-native: ^0.0.0-0 || 0.60 - 0.72 || 1000.0.0
     dependencies:
       merge-options: 3.0.4
+      react-native: 0.72.5(@babel/core@7.23.0)(@babel/preset-env@7.22.20)(react@18.2.0)
+    dev: false
+
+  /@react-native-clipboard/clipboard@1.12.1(react-native@0.72.5)(react@18.2.0):
+    resolution: {integrity: sha512-+PNk8kflpGte0W1Nz61/Dp8gHTxyuRjkVyRYBawymSIGTDHCC/zOJSbig6kGIkD8MeaGHC2vGYQJyUyCrgVPBQ==}
+    peerDependencies:
+      react: '>=16.0'
+      react-native: '>=0.57.0'
+    dependencies:
+      react: 18.2.0
       react-native: 0.72.5(@babel/core@7.23.0)(@babel/preset-env@7.22.20)(react@18.2.0)
     dev: false
 
@@ -11745,3 +11757,7 @@ packages:
 
   /zod@3.22.2:
     resolution: {integrity: sha512-wvWkphh5WQsJbVk1tbx1l1Ly4yg+XecD+Mq280uBGt9wa5BKSWf4Mhp6GmrkPixhMxmabYY7RbzlwVP32pbGCg==}
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
