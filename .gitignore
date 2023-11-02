@@ -48,3 +48,7 @@ yarn-error.log*
 # assets
 apps/expo/assets/*.json
 apps/nextjs/public/*.json
+
+# build directories
+apps/expo/ios
+apps/expo/android
