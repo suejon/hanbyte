@@ -1,8 +1,8 @@
 import type { ExpoConfig } from "@expo/config";
 
 const defineConfig = (): ExpoConfig => ({
-  name: "expo",
-  slug: "expo",
+  name: "hanbyte",
+  slug: "hanbyte",
   scheme: "expo",
   version: "1.0.0",
   orientation: "portrait",
@@ -18,11 +18,11 @@ const defineConfig = (): ExpoConfig => ({
   },
   assetBundlePatterns: ["**/*"],
   ios: {
-    bundleIdentifier: "your.bundle.identifier",
+    bundleIdentifier: "com.speedrun.hanbyte",
     supportsTablet: true,
   },
   android: {
-    package: "your.bundle.identifier",
+    package: "com.speedrun.hanbyte",
     adaptiveIcon: {
       foregroundImage: "./assets/adaptive-icon.png",
       backgroundColor: "#04364A",
@@ -30,7 +30,7 @@ const defineConfig = (): ExpoConfig => ({
   },
   extra: {
     eas: {
-      projectId: "585a6474-145e-417c-98d7-5c4f307bc494",
+      projectId: "b7ec01fb-6d3d-4113-afb8-7c99129c3348",
     },
   },
   experiments: {
