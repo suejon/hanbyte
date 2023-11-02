@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Fuse from "fuse.js";
-import entries from "public/entry.json";
+// import entries from "public/entry.json";
 
 export interface Entry {
   _id: string;
@@ -39,7 +39,7 @@ const fuseOptions = {
     // "english.definition"
   ],
 };
-const fuse = new Fuse(entries as Entry[], fuseOptions);
+// const fuse = new Fuse(entries as Entry[], fuseOptions);
 
 const FusePlayground = () => {
   const [results, setResults] = useState<Entry[]>([]);
@@ -52,17 +52,17 @@ const FusePlayground = () => {
         type="text"
         placeholder="Search"
         onChange={(e) => {
-          const start = performance.now();
-          const results = fuse.search<Entry>(e.target.value);
-          const end = performance.now();
-          console.log(`fuse search took ${end - start}ms`);
-
-          const slicestart = performance.now();
-          const r = results.slice(0, 10).map((r) => r.item);
-          const sliceend = performance.now();
-          console.log(`fuse slice took ${sliceend - slicestart}ms`);
-
-          setResults(r);
+          // const start = performance.now();
+          // const results = fuse.search<Entry>(e.target.value);
+          // const end = performance.now();
+          // console.log(`fuse search took ${end - start}ms`);
+          //
+          // const slicestart = performance.now();
+          // const r = results.slice(0, 10).map((r) => r.item);
+          // const sliceend = performance.now();
+          // console.log(`fuse slice took ${sliceend - slicestart}ms`);
+          //
+          setResults([]);
         }}
       />
       <ol>
