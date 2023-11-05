@@ -1,25 +1,37 @@
 import React from "react";
-import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
 import { TRPCProvider } from "~/utils/api";
 
-// This is the main layout of the app
-// It wraps your pages with the providers they need
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Drawer } from 'expo-router/drawer';
 const RootLayout = () => {
   return (
     <TRPCProvider>
-      {/*
-        The Stack component displays the current page.
-        It also allows you to configure your screens 
-      */}
-      <Stack
-        screenOptions={{
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Drawer initialRouteName="lookup/page" screenOptions={{
           headerStyle: {
             backgroundColor: "#04364A",
-          },
-        }}
-      />
+          }
+        }}>
+          <Drawer.Screen
+            name="lookup/page" // This is the name of the page and must match the url from root
+            options={{
+              drawerLabel: "Home",
+              title: "Home",
+              headerTintColor: "#fff",
+            }}
+          />
+          <Drawer.Screen
+            name="dictionaries/page" // This is the name of the page and must match the url from root
+            options={{
+              drawerLabel: "Dictionaries",
+              title: "Dictionaries",
+              headerTintColor: "#fff",
+            }}
+          />
+        </Drawer>
+      </GestureHandlerRootView>
       <StatusBar />
     </TRPCProvider>
   );

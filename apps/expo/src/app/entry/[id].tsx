@@ -10,8 +10,8 @@ export default function Entry() {
 
   return (
     <SafeAreaView className="bg-[#04364A] h-full">
-      <Stack.Screen options={{ title: entry.korean.word }} />
-      <View className="p-2">
+      <Stack.Screen options={{ title: entry.korean.word, headerTintColor: "white" }} />
+      <View className="p-4">
         <Text className="pb-2 text-5xl font-bold text-teal-400">{entry.korean.word}{" "}
           <Text className="text-white font-normal">({entry.chinese.word})</Text>
         </Text>
