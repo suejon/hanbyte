@@ -1,11 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlashList } from "@shopify/flash-list";
 import entries from "assets/entry.json";
 import { Link, Stack } from "expo-router";
 import Fuse from "fuse.js";
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View, Button } from "react-native";
-// import Clipboard from "@react-native-clipboard/clipboard";
+import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import SearchBar from "~/components/ui/search-bar";
