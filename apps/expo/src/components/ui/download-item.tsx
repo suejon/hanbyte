@@ -11,7 +11,7 @@ interface Props extends ViewProps {
 
 const DownloadItem = ({ className, ...props }: Props) => {
 
-  console.log("className", className)
+  // console.log("className", className)
   const [downloading, setDownloading] = useState(false);
   const [completed, setCompleted] = useState(false);
 

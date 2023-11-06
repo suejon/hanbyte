@@ -46,7 +46,7 @@ yarn-error.log*
 .turbo
 
 # assets
-# apps/expo/assets/*.json
+apps/expo/assets/*.json
 apps/nextjs/public/*.json
 
 # build directories

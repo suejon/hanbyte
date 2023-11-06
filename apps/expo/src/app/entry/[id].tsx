@@ -6,11 +6,17 @@ import type { Entry } from "~/types/entry";
 
 export default function Entry() {
   const { id } = useGlobalSearchParams();
+
+  if (!id) {
+    console.error('No id in params');
+    throw new Error("Something broke");
+  }
+
   const entry: Entry = entrymap[id] || {};
 
   return (
     <SafeAreaView className="bg-[#04364A] h-full">
-      <Stack.Screen options={{ title: entry.korean.word, headerTintColor: "white" }} />
+      <Stack.Screen options={{ title: entry.english.word, headerTintColor: "white" }} />
       <View className="p-4">
         <Text className="pb-2 text-5xl font-bold text-teal-400">{entry.korean.word}{" "}
           <Text className="text-white font-normal">({entry.chinese.word})</Text>

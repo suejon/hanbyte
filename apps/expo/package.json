@@ -54,6 +54,7 @@
     "@types/babel__core": "^7.20.2",
     "@types/react": "^18.2.25",
     "eslint": "^8.50.0",
+    "fs": "0.0.1-security",
     "prettier": "^3.0.3",
     "tailwindcss": "3.3.2",
     "typescript": "^5.2.2"

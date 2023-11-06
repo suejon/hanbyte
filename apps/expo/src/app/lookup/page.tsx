@@ -5,12 +5,11 @@ import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import SearchBar from "~/components/ui/search-bar";
 import { Entry } from "~/types/entry";
 import Fuse from "fuse.js";
-import entries from 'assets/entry.json'
+import entries from 'assets/slim-entry.json'
 
 const fuseOptions = {
-  isCaseSensitive: false,
-  includeScore: false,
   threshold: 0.2,
+  shouldSort: true,
   keys: [
     "english.word",
     // "korean.word",
@@ -25,8 +24,8 @@ export default function Lookup() {
   const [searchResults, setSearchResults] = useState<Entry[]>([]);
 
   const handleSearch = (searchText: string) => {
-    const results = fuse.search<Entry>(searchText);
-    const r = results.slice(0, 10).map((r) => r.item);
+    const results = fuse.search<Entry>(searchText, { limit: 10 })
+    const r = results.map((r) => r.item);
     setSearchResults(r);
   };
   return (

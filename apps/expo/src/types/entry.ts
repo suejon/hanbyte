@@ -4,6 +4,10 @@ export interface Entry {
     word: string;
     definition: string;
   };
+  chinese: {
+    word: string;
+    definition: string;
+  };
   korean: {
     word: string;
     definition: string;
