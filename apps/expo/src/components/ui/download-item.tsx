@@ -6,16 +6,17 @@ import DownloadButton from "./download-button";
 interface Props extends ViewProps {
   name: string;
   description: string;
+  downloaded: boolean;
+  onPress: Function;
   onComplete: Function;
 }
 
-const DownloadItem = ({ className, ...props }: Props) => {
+const DownloadItem = ({ className, downloaded = false, ...props }: Props) => {
 
-  // console.log("className", className)
   const [downloading, setDownloading] = useState(false);
-  const [completed, setCompleted] = useState(false);
+  const [completed, setCompleted] = useState(downloaded);
 
-  const state = completed ? "downloaded" : downloading ? "downloading" : "none";
+  const state = completed || downloaded ? "downloaded" : downloading ? "downloading" : "none";
 
   return (
     <View className="flex-row justify-between p-4 border-b-2 border-gray-600">
@@ -23,12 +24,11 @@ const DownloadItem = ({ className, ...props }: Props) => {
         <Text className="text-teal-400">{props.name}</Text>
         <Text className="text-white">{props.description}</Text>
       </View>
-      <DownloadButton onPress={() => {
+      <DownloadButton onPress={async () => {
         setDownloading(true)
-        setTimeout(() => {
-          setCompleted(true)
-          setDownloading(false)
-        }, 5000)
+        await props.onPress()
+        setCompleted(true)
+        setDownloading(false)
       }} state={state} />
     </View>
   )

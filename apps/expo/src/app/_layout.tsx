@@ -1,21 +1,29 @@
 import React from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Drawer } from "expo-router/drawer";
 import { StatusBar } from "expo-status-bar";
 
 import { TRPCProvider } from "~/utils/api";
 
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Drawer } from 'expo-router/drawer';
 const RootLayout = () => {
   return (
     <TRPCProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <Drawer initialRouteName="lookup/page" screenOptions={{
-          headerStyle: {
-            backgroundColor: "#04364A",
-          }
-        }}>
+        <Drawer
+          screenOptions={{
+            drawerLabelStyle: {
+              // color: "#fff"
+            },
+            headerStyle: {
+              backgroundColor: "#04364A",
+            },
+            drawerStyle: {
+              // backgroundColor: "#565656",
+            }
+          }}
+        >
           <Drawer.Screen
-            name="lookup/page" // This is the name of the page and must match the url from root
+            name="lookup/index"
             options={{
               drawerLabel: "Home",
               title: "Home",
@@ -23,10 +31,26 @@ const RootLayout = () => {
             }}
           />
           <Drawer.Screen
-            name="dictionaries/page" // This is the name of the page and must match the url from root
+            name="dictionaries/index"
             options={{
               drawerLabel: "Dictionaries",
               title: "Dictionaries",
+              headerTintColor: "#fff",
+            }}
+          />
+          <Drawer.Screen
+            name="index"
+            options={{
+              drawerLabel: "-",
+              title: "-",
+              headerTintColor: "#fff",
+            }}
+          />
+          <Drawer.Screen
+            name="lookup/[id]"
+            options={{
+              drawerLabel: "-",
+              title: "-",
               headerTintColor: "#fff",
             }}
           />
