@@ -5,7 +5,13 @@ import { StatusBar } from "expo-status-bar";
 
 import { TRPCProvider } from "~/utils/api";
 
+export const unstable_settings = {
+  // Ensure any route can link back to `/`
+  initialRouteName: 'lookup/index',
+};
+
 const RootLayout = () => {
+
   return (
     <TRPCProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -19,7 +25,7 @@ const RootLayout = () => {
             },
             drawerStyle: {
               // backgroundColor: "#565656",
-            }
+            },
           }}
         >
           <Drawer.Screen
@@ -28,6 +34,9 @@ const RootLayout = () => {
               drawerLabel: "Home",
               title: "Home",
               headerTintColor: "#fff",
+              // swipeEdgeWidth: -100,
+              // header: () => null,
+              // headerShown: false
             }}
           />
           <Drawer.Screen
@@ -41,9 +50,12 @@ const RootLayout = () => {
           <Drawer.Screen
             name="index"
             options={{
-              drawerLabel: "-",
-              title: "-",
+              drawerLabel: "Home",
+              title: "Home",
               headerTintColor: "#fff",
+              drawerItemStyle: {
+                display: "none"
+              }
             }}
           />
           <Drawer.Screen
@@ -52,6 +64,9 @@ const RootLayout = () => {
               drawerLabel: "-",
               title: "-",
               headerTintColor: "#fff",
+              drawerItemStyle: {
+                display: "none"
+              }
             }}
           />
         </Drawer>

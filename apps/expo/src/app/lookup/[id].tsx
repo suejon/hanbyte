@@ -1,4 +1,5 @@
-import { useGlobalSearchParams } from "expo-router";
+import { Stack, useGlobalSearchParams } from "expo-router";
+import { Drawer } from "expo-router/drawer";
 import React, { Suspense } from "react";
 import { ActivityIndicator, SafeAreaView } from "react-native";
 import EntryContainer from "~/components/ui/entry-container";
@@ -8,7 +9,7 @@ export default function Entry() {
   const { id } = useGlobalSearchParams();
 
   if (!id) {
-    console.error('No id in params');
+    console.log('No id in params');
     // throw new Error("Something broke");
     return
   }

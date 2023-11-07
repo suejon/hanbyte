@@ -24,6 +24,7 @@ export const getJSON = async (key: string) => {
     throw Error(`No data found for key ${key}`);
   } catch (error) {
     console.error('Error retrieving data:', error);
+    throw Error(`No data found for key ${key}`);
   }
 };
 

@@ -1,9 +1,9 @@
-import { FlatList, SafeAreaView, View } from "react-native";
+import { Alert, FlatList, SafeAreaView, View } from "react-native";
 import DownloadItem from "~/components/ui/download-item";
 import { DICT } from "~/utils/constants";
 import { getData, saveData } from "~/utils/storage";
-import { Drawer } from 'expo-router/drawer';
 import { useStoreKeys } from "~/hooks/get-store-keys";
+import { useEffect } from "react";
 
 interface Data {
   id: string;
@@ -62,6 +62,12 @@ export default function Dictionaries() {
       />
     )
   };
+
+  useEffect(() => {
+    if (keys.length === 0) {
+      Alert.alert("Welcome to Hanbyte!", "First download a dictionary to get started!")
+    }
+  }, [])
 
   return (
     <SafeAreaView className="bg-[#04364A]">

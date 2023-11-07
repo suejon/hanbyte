@@ -1,6 +1,6 @@
 import { FlashList } from "@shopify/flash-list";
-import { Link } from "expo-router";
-import { useState } from "react";
+import { Link, Stack, router, useNavigation } from "expo-router";
+import { useEffect, useState } from "react";
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import SearchBar from "~/components/ui/search-bar";
 import { Entry } from "~/types/entry";
@@ -20,7 +20,7 @@ const fuseOptions = {
 
 export default function Lookup() {
   const [searchResults, setSearchResults] = useState<Entry[]>([]);
-  const fuse = useFuse<Entry>(fuseOptions, DICT.BASIC_LOOKUP)
+  const [fuse, error] = useFuse<Entry>(fuseOptions, DICT.BASIC_LOOKUP)
 
   const handleSearch = (searchText: string) => {
     const results = fuse
@@ -28,8 +28,14 @@ export default function Lookup() {
       .map((r) => r.item);
     setSearchResults(results);
   };
+
+  useEffect(() => {
+    if (error) { router.push("dictionaries") }
+  }, [error])
+
   return (
     <SafeAreaView className="bg-[#04364A]">
+      {/* <Stack.Screen options={{ headerShown: false }} /> */}
       <View className="h-full w-full px-4 pt-4">
         <Text className="mx-auto text-center pb-2 text-5xl font-bold text-white">
           Learn Korean with <Text className="text-teal-400">HanByte</Text>
