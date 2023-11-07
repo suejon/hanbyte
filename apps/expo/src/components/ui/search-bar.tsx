@@ -9,7 +9,7 @@ const SearchBar = ({ onSearch }: { onSearch: (text: string) => void }) => {
     this.timer = setTimeout(() => {
       // Perform the search operation using the 'text' variable
       onSearch(text);
-    }, 300);
+    }, 100);
   };
 
   useEffect(() => {

@@ -14,7 +14,7 @@ function lazyLoadConfig() {
 }
 
 /** @type {import("@babel/core").ConfigFunction} */
-module.exports = function (api) {
+module.exports = function(api) {
   api.cache.forever();
 
   return {
@@ -27,6 +27,7 @@ module.exports = function (api) {
         },
       ],
       require.resolve("expo-router/babel"),
+      "react-native-reanimated/plugin",
     ],
   };
 };
