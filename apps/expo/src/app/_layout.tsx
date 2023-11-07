@@ -37,14 +37,9 @@ const RootLayout = () => {
               // swipeEdgeWidth: -100,
               // header: () => null,
               // headerShown: false
-            }}
-          />
-          <Drawer.Screen
-            name="dictionaries/index"
-            options={{
-              drawerLabel: "Dictionaries",
-              title: "Dictionaries",
-              headerTintColor: "#fff",
+              drawerItemStyle: {
+                display: "none"
+              }
             }}
           />
           <Drawer.Screen
@@ -53,9 +48,14 @@ const RootLayout = () => {
               drawerLabel: "Home",
               title: "Home",
               headerTintColor: "#fff",
-              drawerItemStyle: {
-                display: "none"
-              }
+            }}
+          />
+          <Drawer.Screen
+            name="dictionaries/index"
+            options={{
+              drawerLabel: "Dictionaries",
+              title: "Dictionaries",
+              headerTintColor: "#fff",
             }}
           />
           <Drawer.Screen
