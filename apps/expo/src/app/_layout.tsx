@@ -4,11 +4,6 @@ import { StatusBar } from "expo-status-bar";
 import { TRPCProvider } from "~/utils/api";
 import { Stack } from "expo-router";
 
-export const unstable_settings = {
-  // Ensure any route can link back to `/`
-  initialRouteName: 'lookup/index',
-};
-
 const RootLayout = () => {
   return (
     <TRPCProvider>
@@ -19,7 +14,10 @@ const RootLayout = () => {
           },
           headerTintColor: "#fff"
         }}
-      />
+      // initialRouteName="/root/lookup/index"
+      >
+        {/* <Stack.Screen name="root" /> */}
+      </Stack>
       <StatusBar />
     </TRPCProvider>
   );

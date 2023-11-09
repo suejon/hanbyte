@@ -1,9 +1,5 @@
 import React from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
-import { StatusBar } from "expo-status-bar";
-
-import { TRPCProvider } from "~/utils/api";
 import { Stack } from "expo-router";
 
 export const unstable_settings = {
