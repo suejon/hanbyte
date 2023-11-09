@@ -1,9 +1,8 @@
 import React from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Drawer } from "expo-router/drawer";
 import { StatusBar } from "expo-status-bar";
 
 import { TRPCProvider } from "~/utils/api";
+import { Stack } from "expo-router";
 
 export const unstable_settings = {
   // Ensure any route can link back to `/`
@@ -11,69 +10,18 @@ export const unstable_settings = {
 };
 
 const RootLayout = () => {
-
   return (
     <TRPCProvider>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Drawer
-          screenOptions={{
-            drawerLabelStyle: {
-              // color: "#fff"
-            },
-            headerStyle: {
-              backgroundColor: "#04364A",
-            },
-            drawerStyle: {
-              // backgroundColor: "#565656",
-            },
-          }}
-        >
-          <Drawer.Screen
-            name="lookup/index"
-            options={{
-              drawerLabel: "Home",
-              title: "Home",
-              headerTintColor: "#fff",
-              // swipeEdgeWidth: -100,
-              // header: () => null,
-              // headerShown: false
-              drawerItemStyle: {
-                display: "none"
-              }
-            }}
-          />
-          <Drawer.Screen
-            name="index"
-            options={{
-              drawerLabel: "Home",
-              title: "Home",
-              headerTintColor: "#fff",
-            }}
-          />
-          <Drawer.Screen
-            name="dictionaries/index"
-            options={{
-              drawerLabel: "Dictionaries",
-              title: "Dictionaries",
-              headerTintColor: "#fff",
-            }}
-          />
-          <Drawer.Screen
-            name="lookup/[id]"
-            options={{
-              drawerLabel: "-",
-              title: "-",
-              headerTintColor: "#fff",
-              drawerItemStyle: {
-                display: "none"
-              }
-            }}
-          />
-        </Drawer>
-      </GestureHandlerRootView>
+      <Stack
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#04364A",
+          },
+          headerTintColor: "#fff"
+        }}
+      />
       <StatusBar />
     </TRPCProvider>
   );
 };
-
 export default RootLayout;

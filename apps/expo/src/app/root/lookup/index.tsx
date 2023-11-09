@@ -53,7 +53,7 @@ export default function Lookup() {
                 <Link
                   asChild
                   href={{
-                    pathname: "/lookup/[id]",
+                    pathname: "/[id]",
                     params: { id: r.item._id["$oid"] },
                   }}
                 >
