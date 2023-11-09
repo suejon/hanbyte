@@ -1,10 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Clipboard } from "react-native";
-
-const readFromClipboard = async () => {
-  const content = await Clipboard.getString();
-  return content;
-};
 
 const _storeData = async () => {
   try {

@@ -1,8 +1,11 @@
-
 import { useEffect, useState } from "react";
-import { getJSON } from "~/utils/storage";
+
+
+
+import type { Entry } from "~/types/entry";
 import { DICT } from "~/utils/constants";
-import { Entry } from "~/types/entry";
+import { getJSON } from "~/utils/storage";
+
 
 export const useEntry = (key: string): Entry | undefined => {
   const [data, setData] = useState<Map<string, Entry>>();
