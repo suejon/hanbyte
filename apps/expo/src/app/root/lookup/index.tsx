@@ -1,26 +1,26 @@
-import { FlashList } from "@shopify/flash-list";
-import { Link, Stack, router, useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { Link, router } from "expo-router";
+import { FlashList } from "@shopify/flash-list";
+
 import SearchBar from "~/components/ui/search-bar";
-import { Entry } from "~/types/entry";
 import { useFuse } from "~/hooks/fuse";
+import type { Entry } from "~/types/entry";
 import { DICT } from "~/utils/constants";
-import { Drawer } from "expo-router/drawer";
 
 const fuseOptions = {
   threshold: 0.2,
   shouldSort: true,
   keys: [
     "english.word",
-    // "korean.word",
+    "korean.word",
     // "english.definition"
   ],
 };
 
 export default function Lookup() {
   const [searchResults, setSearchResults] = useState<Entry[]>([]);
-  const [fuse, error] = useFuse<Entry>(fuseOptions, DICT.BASIC_LOOKUP)
+  const [fuse, error] = useFuse<Entry>(fuseOptions, DICT.BASIC_LOOKUP);
 
   const handleSearch = (searchText: string) => {
     const results = fuse
@@ -30,14 +30,16 @@ export default function Lookup() {
   };
 
   useEffect(() => {
-    if (error) { router.push("dictionaries") }
-  }, [error])
+    if (error) {
+      router.push("dictionaries");
+    }
+  }, [error]);
 
   return (
     <SafeAreaView className="bg-[#04364A]">
       {/* <Stack.Screen options={{ headerShown: false }} /> */}
       <View className="h-full w-full px-4 pt-4">
-        <Text className="mx-auto text-center pb-2 text-5xl font-bold text-white">
+        <Text className="mx-auto pb-2 text-center text-5xl font-bold text-white">
           Learn Korean with <Text className="text-teal-400">HanByte</Text>
         </Text>
         <SearchBar onSearch={handleSearch} />
@@ -54,7 +56,7 @@ export default function Lookup() {
                   asChild
                   href={{
                     pathname: "/[id]",
-                    params: { id: r.item._id["$oid"] },
+                    params: { id: r.item._id.$oid },
                   }}
                 >
                   <TouchableOpacity>
@@ -76,5 +78,5 @@ export default function Lookup() {
         />
       </View>
     </SafeAreaView>
-  )
+  );
 }
